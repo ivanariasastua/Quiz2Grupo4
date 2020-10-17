@@ -28,5 +28,5 @@ public class FacturaDetalleDTO {
     private Date fechaRegistro;
     private Date fechaModificacion;
     private FacturaDTO factura;
-    private ProductosDTO producto;
+    private ProductoDTO producto;
 }
