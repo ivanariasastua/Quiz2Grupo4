@@ -46,7 +46,7 @@ public class ClienteServiceImplementationTest {
     }
 
     @Test
-    public void sePuedeModificarUnaFacturaCorrectamente() {
+    public void sePuedeModificarUnClienteCorrectamente() {
         clienteEjemplo = clienteService.create(clienteEjemplo);
         Optional<ClienteDTO> clienteEncontrado = clienteService.findById(clienteEjemplo.getId());
         if (clienteEncontrado.isPresent()) {
@@ -66,14 +66,14 @@ public class ClienteServiceImplementationTest {
     }
 
     @Test
-    public void sePuedeEliminarUnaFacturaCorrectaMente() {
+    public void sePuedeEliminarUnClienteCorrectamente() {
         clienteEjemplo = clienteService.create(clienteEjemplo);
         Optional<ClienteDTO> clienteEncontrado = clienteService.findById(clienteEjemplo.getId());
         if (clienteEncontrado.isPresent()) {
             ClienteDTO cliente = clienteEncontrado.get();
             clienteService.delete(cliente.getId());
             if (clienteService.findById(cliente.getId()) != null) {
-                fail("El cliente no pudo ser eliminada");
+                fail("El cliente no pudo ser eliminado");
             } else {
                 clienteEjemplo = null;
             }
