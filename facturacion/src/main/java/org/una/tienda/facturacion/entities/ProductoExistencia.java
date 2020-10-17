@@ -63,7 +63,7 @@ public class ProductoExistencia implements Serializable{
     private Date fechaRegistro;
     
     @ManyToOne 
-    @JoinColumn(name="existencias")
+    @JoinColumn(name="productos_id")
     Producto producto;
     
     @PrePersist
