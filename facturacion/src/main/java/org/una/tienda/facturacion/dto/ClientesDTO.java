@@ -5,11 +5,33 @@
  */
 package org.una.tienda.facturacion.dto;
 
+import java.util.Date;
+import javax.json.bind.annotation.JsonbDateFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 
 /**
  *
  * @author Ivan Josué Arias Astua
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class ClientesDTO {
+    
+    private Long id;
+    private String direccion;
+    private String email;
+    private boolean estado;
+    @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    private Date fechaRegistro;
+    @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    private Date fechaModificacion;
+    private String nombre;
+    private String telefono;
     
 }
