@@ -34,7 +34,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Clientes implements Serializable{
+public class Cliente implements Serializable{
     
     private static final long serialVersionUID = 1L;
     

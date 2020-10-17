@@ -36,7 +36,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ProductosPrecios implements Serializable{
+public class ProductoPrecio implements Serializable{
     
     private static final long serialVersionUID = 1L;
 
@@ -68,7 +68,7 @@ public class ProductosPrecios implements Serializable{
     
     @ManyToOne 
     @JoinColumn(name="productos_id")
-    private Productos productos;
+    private Producto productos;
     
     @PrePersist
     public void prePersist(){

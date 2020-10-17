@@ -20,7 +20,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ProductosPreciosDTO {
+public class ProductoPrecioDTO {
     
     private Long id;
     private double descuentoMaximo;
@@ -31,5 +31,5 @@ public class ProductosPreciosDTO {
     @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date fechaModificacion;
     private double precioColones;
-    private ProductosDTO productos;
+    private ProductoDTO productos;
 }
