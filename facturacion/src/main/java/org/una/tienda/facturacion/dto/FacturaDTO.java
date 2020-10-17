@@ -6,6 +6,7 @@
 package org.una.tienda.facturacion.dto;
 
 import java.util.Date;
+import javax.json.bind.annotation.JsonbDateFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,9 @@ public class FacturaDTO {
     private Integer caja;
     private Double descuentoGeneral;
     private Boolean estado;
+    @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date fechaRegistro;
+    @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date fechaModificacion;
     private ClientesDTO cliente;
 }
