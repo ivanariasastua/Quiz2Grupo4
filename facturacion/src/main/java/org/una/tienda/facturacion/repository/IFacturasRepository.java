@@ -20,7 +20,7 @@ public interface IFacturasRepository extends JpaRepository<Factura, Long>{
     public List<Factura> findByCaja(Integer caja);
     public List<Factura> findByDescuentoGeneral(Double descuentoGeneral);
     public List<Factura> findByEstado(Boolean estado);
-    @Query("SELECT f FROM Factura f WHERE f.cliente.id = :id")
-    public List<Factura> findByCliente(@Param("id") Long id);
+//    @Query("SELECT f FROM Factura f WHERE f.cliente.id = :id")
+//    public List<Factura> findByCliente(@Param("id") Long id);
     
 }
