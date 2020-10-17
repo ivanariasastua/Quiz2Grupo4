@@ -15,7 +15,7 @@ import org.una.tienda.facturacion.entities.Factura;
  *
  * @author Ivan Josué Arias Astua
  */
-public interface IFacturasRepository extends JpaRepository<Factura, Long>{
+public interface IFacturaRepository extends JpaRepository<Factura, Long>{
     
     public List<Factura> findByCaja(Integer caja);
     public List<Factura> findByDescuentoGeneral(Double descuentoGeneral);
