@@ -5,7 +5,17 @@
  */
 package org.una.tienda.facturacion.service;
 
+import java.util.Optional;
+import org.una.tienda.facturacion.dto.ClienteDTO;
+
 
 public interface IProductoService {
     
+    public Optional<ClienteDTO> findById(Long id);
+    
+    public ClienteDTO create(ClienteDTO cliente);
+
+    public Optional<ClienteDTO> update(ClienteDTO cliente, Long id);
+    
+    public void delete(Long id);
 }

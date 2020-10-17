@@ -33,7 +33,7 @@ import lombok.ToString;
  * @author Ivan Josué Arias Astua
  */
 @Entity
-@Table(name = "ut_Clientes")
+@Table(name = "ut_clientes")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
