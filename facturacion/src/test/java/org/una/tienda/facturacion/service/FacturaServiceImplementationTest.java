@@ -65,6 +65,25 @@ public class FacturaServiceImplementationTest {
         }
     }
     
+    @Test
+    public void sePuedeEliminarUnaFacturaCorrectaMente(){
+        facturaEjemplo = facturaService.create(facturaEjemplo);
+        Optional<FacturaDTO> facturaEncontrada = facturaService.findById(facturaEjemplo.getId());
+        if(facturaEncontrada.isPresent()){
+            FacturaDTO factura = facturaEncontrada.get();
+            facturaService.delete(factura.getId());
+            if(factura.getCliente() == null){
+                if(facturaService.findById(factura.getId()) != null){
+                    fail("La factura no pudo ser eliminada");
+                }else{
+                    facturaEjemplo = null;
+                }
+            }
+        }else{
+            fail("No se encontro la informacion en base de datos");
+        }
+    }
+    
     @AfterEach
     public void tearDown(){
         if(facturaEjemplo != null){
