@@ -9,6 +9,6 @@ package org.una.tienda.facturacion.dto;
  *
  * @author Ivan Josué Arias Astua
  */
-public class ProductosExistenciasDTO {
+public class ProductoDTO {
     
 }
