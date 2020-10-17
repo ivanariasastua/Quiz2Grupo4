@@ -58,12 +58,10 @@ public class Factura implements Serializable {
     private Boolean estado;
     
     @Column(name = "fecha_registro")
-    @Setter(AccessLevel.NONE)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
     
     @Column(name = "fecha_modificacion")
-    @Setter(AccessLevel.NONE)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
     

@@ -31,18 +31,32 @@ public class ServiceConvertionHelper {
         return null;
     }
     
-    public static<D, E> Optional<D> oneToOptionalDto(final Optional<E> one, Class<D> dtoClass){
-        if(one.isPresent()){
-            D oneDto = MapperUtils.DtoFromEntity(one.get(), dtoClass);
+    public static<D, E> Optional<D> oneToOptionalDto(final E one, Class<D> dtoClass){
+        if(one != null){
+            D oneDto = MapperUtils.DtoFromEntity(one, dtoClass);
             return Optional.ofNullable(oneDto);
         }
         return null;
     }
     
-    public static<D, E> D oneToDto(final Optional<E> one, Class<D> dtoClass){
+    public static<D, E> D OptionalOneToDto(final Optional<E> one, Class<D> dtoClass){
         if(one.isPresent()){
             return MapperUtils.DtoFromEntity(one.get(), dtoClass);
         }
         return null;
     }
+    
+    public static<D, E> D OneToDto(final E one, Class<D> dtoClass){
+        if(one != null){
+            return MapperUtils.DtoFromEntity(one, dtoClass);
+        }
+        return null;
+    }
+    
+    public static<D, E> Optional<D> OptionalOneToOptionalDto(final Optional<E> one, Class<D> dtoClass){
+        if(one.isPresent()){
+            return Optional.ofNullable(MapperUtils.DtoFromEntity(one.get(), dtoClass));
+        }
+        return null;
+    } 
 }
