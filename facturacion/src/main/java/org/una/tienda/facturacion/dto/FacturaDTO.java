@@ -31,5 +31,5 @@ public class FacturaDTO {
     private Date fechaRegistro;
     @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date fechaModificacion;
-    private ClientesDTO cliente;
+    private ClienteDTO cliente;
 }

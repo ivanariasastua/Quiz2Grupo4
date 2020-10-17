@@ -5,7 +5,10 @@
  */
 package org.una.tienda.facturacion.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.json.bind.annotation.JsonbDateFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +24,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ClientesDTO {
+public class ClienteDTO {
     
     private Long id;
     private String direccion;
@@ -33,5 +36,7 @@ public class ClientesDTO {
     private Date fechaModificacion;
     private String nombre;
     private String telefono;
+    @JsonManagedReference
+    private List<FacturaDTO> facturas = new ArrayList<>();
     
 }
