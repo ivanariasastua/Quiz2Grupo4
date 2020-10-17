@@ -67,9 +67,9 @@ public class FacturaDetalle implements Serializable {
     @JoinColumn(name="facturas_id")
     private Factura factura;
     
-//    @ManyToOne 
-//    @JoinColumn(name="productos_id")
-//    private Productos producto;
+    @ManyToOne 
+    @JoinColumn(name="productos_id")
+    private Producto producto;
  
     @PrePersist
     public void PrePersist(){

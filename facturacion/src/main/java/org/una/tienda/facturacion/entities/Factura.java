@@ -67,9 +67,9 @@ public class Factura implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
     
-//    @ManyToOne 
-//    @JoinColumn(name="cliente_id")
-//    private Clientes cliente;
+    @ManyToOne 
+    @JoinColumn(name="cliente_id")
+    private Cliente cliente;
  
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "factura") 
     private List<FacturaDetalle> detalle = new ArrayList<>();
