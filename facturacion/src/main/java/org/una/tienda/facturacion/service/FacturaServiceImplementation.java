@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.tienda.facturacion.dto.FacturaDTO;
 import org.una.tienda.facturacion.entities.Factura;
+import org.una.tienda.facturacion.exceptions.FacturaException;
 import org.una.tienda.facturacion.repository.IFacturaRepository;
 import org.una.tienda.facturacion.utils.MapperUtils;
 import org.una.tienda.facturacion.utils.ServiceConvertionHelper;
@@ -41,8 +42,11 @@ public class FacturaServiceImplementation implements IFacturaService{
 
     @Override
     @Transactional
-    public Optional<FacturaDTO> update(FacturaDTO factura, Long id) {
-        if(facturaRepository.findById(id).isPresent()){
+    public Optional<FacturaDTO> update(FacturaDTO factura, Long id) throws FacturaException{
+        Optional<Factura> facturaModified = facturaRepository.findById(id);
+        if(facturaModified.isPresent()){
+            if(!facturaModified.get().getEstado())
+                throw new FacturaException("No se pueden modificar los datos inactivos");
             Factura fac = MapperUtils.EntityFromDto(factura, Factura.class);
             fac = facturaRepository.save(fac);
             return ServiceConvertionHelper.oneToOptionalDto(fac, FacturaDTO.class);

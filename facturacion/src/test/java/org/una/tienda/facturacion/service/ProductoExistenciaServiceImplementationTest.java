@@ -14,7 +14,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.una.tienda.facturacion.dto.FacturaDTO;
 import org.una.tienda.facturacion.dto.ProductoDTO;
 import org.una.tienda.facturacion.dto.ProductoExistenciaDTO;
 
@@ -32,7 +31,7 @@ public class ProductoExistenciaServiceImplementationTest {
     
     @BeforeEach
     public void setup(){
-        producto = new ProductoDTO(Long.valueOf("0"), "Sin descripción", true, new Date(), new Date(), 0.16);
+        producto = new ProductoDTO(Long.valueOf("0"), "Sin descripción", true, new Date(), new Date(), 0.16, null, null);
         producto = productoService.create(producto);
         productoExistenciaEjemplo = new ProductoExistenciaDTO(Long.valueOf("0"),0.0001, true, new Date(), new Date(), producto);
     }
@@ -50,23 +49,25 @@ public class ProductoExistenciaServiceImplementationTest {
     }
     
     @Test 
-    public void sePuedeModificarUnaExistenciaCorrectamente(){
-        productoExistenciaEjemplo = productoExistenciaService.create(productoExistenciaEjemplo);
-        Optional<ProductoExistenciaDTO> productoExistenciaEncontrada = productoExistenciaService.findById(productoExistenciaEjemplo.getId());
-        if(productoExistenciaEncontrada.isPresent()){
-            ProductoExistenciaDTO productoExistencia = productoExistenciaEncontrada.get();
-            productoExistencia.setEstado(Boolean.FALSE);
-            Optional<ProductoExistenciaDTO> productoExistenciaModified = productoExistenciaService.update(productoExistencia, productoExistencia.getId());
-            if(productoExistenciaModified.isPresent()){
-                if(productoExistenciaModified.get().equals(productoExistenciaEjemplo)){
-                    fail("La modificacion fallo");
+    public void sePuedeModificarUnaExistenciaCorrectamente() {
+        Assertions.assertDoesNotThrow(() -> {
+           productoExistenciaEjemplo = productoExistenciaService.create(productoExistenciaEjemplo);
+            Optional<ProductoExistenciaDTO> productoExistenciaEncontrada = productoExistenciaService.findById(productoExistenciaEjemplo.getId());
+            if(productoExistenciaEncontrada.isPresent()){
+                ProductoExistenciaDTO productoExistencia = productoExistenciaEncontrada.get();
+                productoExistencia.setEstado(Boolean.FALSE);
+                Optional<ProductoExistenciaDTO> productoExistenciaModified = productoExistenciaService.update(productoExistencia, productoExistencia.getId());
+                if(productoExistenciaModified.isPresent()){
+                    if(productoExistenciaModified.get().equals(productoExistenciaEjemplo)){
+                        fail("La modificacion fallo");
+                    }
+                }else{
+                    fail("Fallo en el intento de modificar");
                 }
             }else{
-                fail("Fallo en el intento de modificar");
-            }
-        }else{
-            fail("No se encontro la informacion en base de datos");
-        }
+                fail("No se encontro la informacion en base de datos");
+            } 
+        });
     }
     
     @Test

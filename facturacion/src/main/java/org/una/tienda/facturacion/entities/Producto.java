@@ -69,6 +69,9 @@ public class Producto implements Serializable{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto") 
     private List<ProductoExistencia> existencias = new ArrayList<>();
     
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productos") 
+    private List<ProductoPrecio> precios = new ArrayList<>();
+    
     @PrePersist
     public void PrePersist(){
         this.estado = true;

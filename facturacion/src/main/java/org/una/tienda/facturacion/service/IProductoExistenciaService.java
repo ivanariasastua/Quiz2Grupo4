@@ -7,6 +7,7 @@ package org.una.tienda.facturacion.service;
 
 import java.util.Optional;
 import org.una.tienda.facturacion.dto.ProductoExistenciaDTO;
+import org.una.tienda.facturacion.exceptions.ProductoExistenciaException;
 
 
 public interface IProductoExistenciaService {
@@ -15,7 +16,7 @@ public interface IProductoExistenciaService {
     
     public ProductoExistenciaDTO create(ProductoExistenciaDTO producto);
 
-    public Optional<ProductoExistenciaDTO> update(ProductoExistenciaDTO producto, Long id);
+    public Optional<ProductoExistenciaDTO> update(ProductoExistenciaDTO producto, Long id) throws ProductoExistenciaException;
     
     public void delete(Long id);
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.tienda.facturacion.dto.ProductoExistenciaDTO;
 import org.una.tienda.facturacion.entities.ProductoExistencia;
+import org.una.tienda.facturacion.exceptions.ProductoExistenciaException;
 import org.una.tienda.facturacion.repository.IProductoExistenciaRepository;
 import org.una.tienda.facturacion.utils.MapperUtils;
 import org.una.tienda.facturacion.utils.ServiceConvertionHelper;
@@ -41,8 +42,11 @@ public class ProductoExistenciaServiceImplementation implements IProductoExisten
 
     @Override
     @Transactional
-    public Optional<ProductoExistenciaDTO> update(ProductoExistenciaDTO producto, Long id) {
-        if (productoExistenciaRepository.findById(id).isPresent()) {
+    public Optional<ProductoExistenciaDTO> update(ProductoExistenciaDTO producto, Long id) throws ProductoExistenciaException{
+        Optional<ProductoExistencia> productoExistenciaModified = productoExistenciaRepository.findById(id);
+        if (productoExistenciaModified.isPresent()) {
+            if(!productoExistenciaModified.get().isEstado())
+                throw new ProductoExistenciaException("No se pueden modificar los datos inactivos");
             ProductoExistencia entidad = MapperUtils.EntityFromDto(producto, ProductoExistencia.class);
             entidad = productoExistenciaRepository.save(entidad);
             return ServiceConvertionHelper.oneToOptionalDto(entidad, ProductoExistenciaDTO.class);

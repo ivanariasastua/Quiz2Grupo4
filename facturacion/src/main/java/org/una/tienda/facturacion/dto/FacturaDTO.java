@@ -5,7 +5,10 @@
  */
 package org.una.tienda.facturacion.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.json.bind.annotation.JsonbDateFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,4 +35,6 @@ public class FacturaDTO {
     @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date fechaModificacion;
     private ClienteDTO cliente;
+    @JsonManagedReference
+    private List<FacturaDetalleDTO> detalle = new ArrayList<>();
 }

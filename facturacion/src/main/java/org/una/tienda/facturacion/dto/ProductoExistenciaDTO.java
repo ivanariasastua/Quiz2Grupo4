@@ -5,6 +5,7 @@
  */
 package org.una.tienda.facturacion.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,5 +28,6 @@ public class ProductoExistenciaDTO {
     private Boolean estado;
     private Date fechaModificacion;
     private Date fechaRegistro;
+    @JsonBackReference
     private ProductoDTO producto;
 }

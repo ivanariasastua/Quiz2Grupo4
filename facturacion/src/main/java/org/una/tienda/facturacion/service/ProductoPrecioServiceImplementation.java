@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.tienda.facturacion.dto.ProductoPrecioDTO;
 import org.una.tienda.facturacion.entities.ProductoPrecio;
+import org.una.tienda.facturacion.exceptions.ProductoPrecioException;
 import org.una.tienda.facturacion.repository.IProductoPrecioRepository;
 import org.una.tienda.facturacion.utils.MapperUtils;
 import org.una.tienda.facturacion.utils.ServiceConvertionHelper;
@@ -41,8 +42,11 @@ public class ProductoPrecioServiceImplementation implements IProductoPrecioServi
 
     @Override
     @Transactional
-    public Optional<ProductoPrecioDTO> update(ProductoPrecioDTO producto, Long id) {
-        if (productoRepository.findById(id).isPresent()) {
+    public Optional<ProductoPrecioDTO> update(ProductoPrecioDTO producto, Long id) throws ProductoPrecioException{
+        Optional<ProductoPrecio> productoPrecioModified = productoRepository.findById(id);
+        if (productoPrecioModified.isPresent()) {
+            if(!productoPrecioModified.get().getEstado())
+                throw new ProductoPrecioException("No se pueden modificar los datos inactivos");
             ProductoPrecio productoPrecio = MapperUtils.EntityFromDto(producto, ProductoPrecio.class);
             productoPrecio = productoRepository.save(productoPrecio);
             return ServiceConvertionHelper.oneToOptionalDto(productoPrecio, ProductoPrecioDTO.class);

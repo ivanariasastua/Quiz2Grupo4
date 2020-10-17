@@ -8,6 +8,7 @@ package org.una.tienda.facturacion.service;
 import java.util.Date;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,56 +31,62 @@ public class ClienteServiceImplementationTest {
 
     @BeforeEach
     public void setup() {
-        clienteEjemplo = new ClienteDTO(Long.valueOf("0"), "", "", true, new Date(), new Date(), "", "", null);
+        clienteEjemplo = new ClienteDTO(Long.valueOf("0"), "Desconocida", "nombre@correo.com", true, new Date(), new Date(), "Cliente prueba", "12345678", null);
     }
 
     @Test
-    public void sePuedeCrearUnClienteCorrectamente() {
-        clienteEjemplo = clienteService.create(clienteEjemplo);
-        Optional<ClienteDTO> clienteEncontrado = clienteService.findById(clienteEjemplo.getId());
-        if (clienteEncontrado.isPresent()) {
-            ClienteDTO cliente = clienteEncontrado.get();
-            assertEquals(clienteEjemplo.getId(), cliente.getId());
-        } else {
-            fail("No se encontro la información en la BD");
-        }
+    public void sePuedeCrearUnClienteCorrectamente(){
+        Assertions.assertDoesNotThrow(() -> {
+            clienteEjemplo = clienteService.create(clienteEjemplo);
+            Optional<ClienteDTO> clienteEncontrado = clienteService.findById(clienteEjemplo.getId());
+            if (clienteEncontrado.isPresent()) {
+                ClienteDTO cliente = clienteEncontrado.get();
+                assertEquals(clienteEjemplo.getId(), cliente.getId());
+            } else {
+                fail("No se encontro la información en la BD");
+            }
+        });
     }
 
     @Test
-    public void sePuedeModificarUnClienteCorrectamente() {
-        clienteEjemplo = clienteService.create(clienteEjemplo);
-        Optional<ClienteDTO> clienteEncontrado = clienteService.findById(clienteEjemplo.getId());
-        if (clienteEncontrado.isPresent()) {
-            ClienteDTO cliente = clienteEncontrado.get();
-            cliente.setEstado(Boolean.FALSE);
-            Optional<ClienteDTO> clienteModified = clienteService.update(cliente, cliente.getId());
-            if (clienteModified.isPresent()) {
-                if (clienteModified.get().equals(clienteEjemplo)) {
-                    fail("La modificacion fallo");
+    public void sePuedeModificarUnClienteCorrectamente(){
+        Assertions.assertDoesNotThrow(() -> {
+            clienteEjemplo = clienteService.create(clienteEjemplo);
+            Optional<ClienteDTO> clienteEncontrado = clienteService.findById(clienteEjemplo.getId());
+            if (clienteEncontrado.isPresent()) {
+                ClienteDTO cliente = clienteEncontrado.get();
+                cliente.setEstado(Boolean.FALSE);
+                Optional<ClienteDTO> clienteModified = clienteService.update(cliente, cliente.getId());
+                if (clienteModified.isPresent()) {
+                    if (clienteModified.get().equals(clienteEjemplo)) {
+                        fail("La modificacion fallo");
+                    }
+                } else {
+                    fail("Fallo en el intento de modificar");
                 }
             } else {
-                fail("Fallo en el intento de modificar");
+                fail("No se encontro la informacion en base de datos");
             }
-        } else {
-            fail("No se encontro la informacion en base de datos");
-        }
+        });
     }
 
     @Test
-    public void sePuedeEliminarUnClienteCorrectamente() {
-        clienteEjemplo = clienteService.create(clienteEjemplo);
-        Optional<ClienteDTO> clienteEncontrado = clienteService.findById(clienteEjemplo.getId());
-        if (clienteEncontrado.isPresent()) {
-            ClienteDTO cliente = clienteEncontrado.get();
-            clienteService.delete(cliente.getId());
-            if (clienteService.findById(cliente.getId()) != null) {
-                fail("El cliente no pudo ser eliminado");
+    public void sePuedeEliminarUnClienteCorrectamente(){
+        Assertions.assertDoesNotThrow(() -> {
+            clienteEjemplo = clienteService.create(clienteEjemplo);
+            Optional<ClienteDTO> clienteEncontrado = clienteService.findById(clienteEjemplo.getId());
+            if (clienteEncontrado.isPresent()) {
+                ClienteDTO cliente = clienteEncontrado.get();
+                clienteService.delete(cliente.getId());
+                if (clienteService.findById(cliente.getId()) != null) {
+                    fail("El cliente no pudo ser eliminado");
+                } else {
+                    clienteEjemplo = null;
+                }
             } else {
-                clienteEjemplo = null;
+                fail("No se encontro la informacion en base de datos");
             }
-        } else {
-            fail("No se encontro la informacion en base de datos");
-        }
+        });
     }
 
     @AfterEach

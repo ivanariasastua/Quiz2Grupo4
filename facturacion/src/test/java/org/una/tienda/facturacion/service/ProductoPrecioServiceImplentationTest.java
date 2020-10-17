@@ -8,6 +8,7 @@ package org.una.tienda.facturacion.service;
 import java.util.Date;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,22 +48,24 @@ public class ProductoPrecioServiceImplentationTest {
 
     @Test
     public void sePuedeModificarUnProductoPrecioCorrectamente() {
-        productoEjemplo = productoService.create(productoEjemplo);
-        Optional<ProductoPrecioDTO> productoEncontrado = productoService.findById(productoEjemplo.getId());
-        if (productoEncontrado.isPresent()) {
-            ProductoPrecioDTO producto = productoEncontrado.get();
-            producto.setEstado(Boolean.FALSE);
-            Optional<ProductoPrecioDTO> productoModified = productoService.update(producto, producto.getId());
-            if (productoModified.isPresent()) {
-                if (productoModified.get().equals(productoEjemplo)) {
-                    fail("La modificacion fallo");
+        Assertions.assertDoesNotThrow(() -> {
+            productoEjemplo = productoService.create(productoEjemplo);
+            Optional<ProductoPrecioDTO> productoEncontrado = productoService.findById(productoEjemplo.getId());
+            if (productoEncontrado.isPresent()) {
+                ProductoPrecioDTO producto = productoEncontrado.get();
+                producto.setEstado(Boolean.FALSE);
+                Optional<ProductoPrecioDTO> productoModified = productoService.update(producto, producto.getId());
+                if (productoModified.isPresent()) {
+                    if (productoModified.get().equals(productoEjemplo)) {
+                        fail("La modificacion fallo");
+                    }
+                } else {
+                    fail("Fallo en el intento de modificar");
                 }
             } else {
-                fail("Fallo en el intento de modificar");
+                fail("No se encontro la informacion en base de datos");
             }
-        } else {
-            fail("No se encontro la informacion en base de datos");
-        }
+        });
     }
 
     @Test

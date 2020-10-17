@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.una.tienda.facturacion.dto.ClienteDTO;
 import org.una.tienda.facturacion.dto.FacturaDTO;
+import org.una.tienda.facturacion.exceptions.ClienteException;
 
 /**
  *
@@ -34,10 +35,10 @@ public class FacturaServiceImplementationTest {
     ClienteDTO cliente;
     
     @BeforeEach
-    public void setup(){
+    public void setup() throws ClienteException{
         cliente = new ClienteDTO(Long.valueOf("0"), "Desconocida", "sumail@correo.com", true, new Date(), new Date(), "Cliente Prueba", "12345678", null);
         cliente = clienteService.create(cliente);
-        facturaEjemplo = new FacturaDTO(Long.valueOf("0"), 1, 0.5, true, new Date(),new Date(), cliente);
+        facturaEjemplo = new FacturaDTO(Long.valueOf("0"), 1, 0.5, true, new Date(),new Date(), cliente, null);
     }
     
     @Test
@@ -53,23 +54,25 @@ public class FacturaServiceImplementationTest {
     }
     
     @Test 
-    public void sePuedeModificarUnaFacturaCorrectamente(){
-        facturaEjemplo = facturaService.create(facturaEjemplo);
-        Optional<FacturaDTO> facturaEncontrada = facturaService.findById(facturaEjemplo.getId());
-        if(facturaEncontrada.isPresent()){
-            FacturaDTO factura = facturaEncontrada.get();
-            factura.setEstado(Boolean.FALSE);
-            Optional<FacturaDTO> facturaModified = facturaService.update(factura, factura.getId());
-            if(facturaModified.isPresent()){
-                if(facturaModified.get().equals(facturaEjemplo)){
-                    fail("La modificacion fallo");
+    public void sePuedeModificarUnaFacturaCorrectamente() {
+        Assertions.assertDoesNotThrow(() -> {
+           facturaEjemplo = facturaService.create(facturaEjemplo);
+            Optional<FacturaDTO> facturaEncontrada = facturaService.findById(facturaEjemplo.getId());
+            if(facturaEncontrada.isPresent()){
+                FacturaDTO factura = facturaEncontrada.get();
+                factura.setEstado(Boolean.FALSE);
+                Optional<FacturaDTO> facturaModified = facturaService.update(factura, factura.getId());
+                if(facturaModified.isPresent()){
+                    if(facturaModified.get().equals(facturaEjemplo)){
+                        fail("La modificacion fallo");
+                    }
+                }else{
+                    fail("Fallo en el intento de modificar");
                 }
             }else{
-                fail("Fallo en el intento de modificar");
-            }
-        }else{
-            fail("No se encontro la informacion en base de datos");
-        }
+                fail("No se encontro la informacion en base de datos");
+            } 
+        });
     }
     
     @Test
