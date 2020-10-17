@@ -7,6 +7,7 @@ package org.una.tienda.facturacion.service;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.tienda.facturacion.dto.ProductoExistenciaDTO;
 import org.una.tienda.facturacion.entities.ProductoExistencia;
@@ -18,6 +19,7 @@ import org.una.tienda.facturacion.utils.ServiceConvertionHelper;
  *
  * @author Dios
  */
+@Service
 public class ProductoExistenciaServiceImplementation implements IProductoExistenciaService{
 
     @Autowired

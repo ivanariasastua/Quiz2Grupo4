@@ -7,6 +7,7 @@ package org.una.tienda.facturacion.service;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.tienda.facturacion.dto.ProductoDTO;
 import org.una.tienda.facturacion.entities.Producto;
@@ -14,7 +15,7 @@ import org.una.tienda.facturacion.repository.IProductoRepository;
 import org.una.tienda.facturacion.utils.MapperUtils;
 import org.una.tienda.facturacion.utils.ServiceConvertionHelper;
 
-
+@Service
 public class ProductoServiceImplementation implements IProductoService{
 
     @Autowired
