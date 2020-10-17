@@ -6,16 +6,16 @@
 package org.una.tienda.facturacion.service;
 
 import java.util.Optional;
-import org.una.tienda.facturacion.dto.ClienteDTO;
+import org.una.tienda.facturacion.dto.ProductoDTO;
 
 
 public interface IProductoService {
     
-    public Optional<ClienteDTO> findById(Long id);
+    public Optional<ProductoDTO> findById(Long id);
     
-    public ClienteDTO create(ClienteDTO cliente);
+    public ProductoDTO create(ProductoDTO producto);
 
-    public Optional<ClienteDTO> update(ClienteDTO cliente, Long id);
+    public Optional<ProductoDTO> update(ProductoDTO producto, Long id);
     
     public void delete(Long id);
 }

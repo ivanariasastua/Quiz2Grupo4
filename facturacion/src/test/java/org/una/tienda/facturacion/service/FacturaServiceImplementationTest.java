@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.una.tienda.facturacion.dto.ClienteDTO;
 import org.una.tienda.facturacion.dto.FacturaDTO;
 
 /**
@@ -25,12 +26,18 @@ public class FacturaServiceImplementationTest {
     
     @Autowired
     private IFacturaService facturaService;
+    
+    @Autowired
+    private IClienteService clienteService;
 
     FacturaDTO facturaEjemplo;
+    ClienteDTO cliente;
     
     @BeforeEach
     public void setup(){
-        facturaEjemplo = new FacturaDTO(Long.valueOf("0"), 1, 0.5, true, new Date(),new Date(), null);
+        cliente = new ClienteDTO(Long.valueOf("0"), "Desconocida", "sumail@correo.com", true, new Date(), new Date(), "Cliente Prueba", "12345678", null);
+        cliente = clienteService.create(cliente);
+        facturaEjemplo = new FacturaDTO(Long.valueOf("0"), 1, 0.5, true, new Date(),new Date(), cliente);
     }
     
     @Test
