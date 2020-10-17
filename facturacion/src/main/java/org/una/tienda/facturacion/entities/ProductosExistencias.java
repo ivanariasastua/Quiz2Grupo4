@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.una.tienda.facturacion.dto;
+package org.una.tienda.facturacion.entities;
 
 /**
  *
  * @author Ivan Josué Arias Astua
  */
-public class ProductosExistentesDTO {
+public class ProductosExistencias {
     
 }
