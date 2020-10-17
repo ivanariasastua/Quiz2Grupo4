@@ -8,10 +8,6 @@ package org.una.tienda.facturacion.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.una.tienda.facturacion.entities.Producto;
 
-/**
- *
- * @author Dios
- */
 public interface IProductoRepository extends JpaRepository<Producto, Long>{
     
 }
