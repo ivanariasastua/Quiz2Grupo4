@@ -5,24 +5,24 @@
  */
 package org.una.tienda.facturacion.controllers;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author cordo
  */
-@Controller
+@RestController
+@RequestMapping("/tipo-cambio")
 public class TipoCambioController {
     
-    @RequestMapping("/tipo-cambio/a-dolares/")
-    public @ResponseBody double conversionDolaresAColones() { 
-        double conversionDolaresAColones= 610;
-        return conversionDolaresAColones; 
-    } 
-    
+    @GetMapping("/a-dolares/{valorEnColones}")
+    public String conversionDolaresAColones(@PathVariable("valorEnColones") String valorEnColones){
+        Double valorColones = Double.parseDouble(valorEnColones);
+        return String.valueOf( valorColones / 610);
+    }
 }
 
     
