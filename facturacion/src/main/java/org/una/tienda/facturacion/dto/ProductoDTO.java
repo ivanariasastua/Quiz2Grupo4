@@ -5,10 +5,27 @@
  */
 package org.una.tienda.facturacion.dto;
 
+import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 /**
  *
  * @author Ivan Josué Arias Astua
  */
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class ProductoDTO {
     
+    private Long id;
+    private String descripcion;
+    private Boolean estado;
+    private Date fechaModificacion;
+    private Date fechaRegistro;
+    private Double impuesto;
 }
