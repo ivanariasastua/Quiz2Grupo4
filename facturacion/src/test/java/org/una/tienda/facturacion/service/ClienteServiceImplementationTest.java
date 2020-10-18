@@ -95,7 +95,6 @@ public class ClienteServiceImplementationTest {
             clienteService.delete(clienteEjemplo.getId());
             clienteEjemplo = null;
         }
-
     }
 
 }
