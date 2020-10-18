@@ -38,8 +38,11 @@ public class FacturaDetalleServiceImplementation implements IFacturaDetalleServi
     @Override
     @Transactional
     public FacturaDetalleDTO create(FacturaDetalleDTO factura) throws FacturaDetalleException{
-        if(factura.getFactura().getCliente() == null || !factura.getFactura().getCliente().isEstado())
+        if(factura.getFactura().getCliente() == null)
             throw new FacturaDetalleException("No se puede registrar un detalle si el cliente no es valido");
+            
+        if(!factura.getFactura().getCliente().isEstado())
+            throw new FacturaDetalleException("No se puede registrar un detalle si el cliente no esta activo");
             
         if(factura.getCantidad() == 0)
             throw new FacturaDetalleException("No se puede registrar un detalle si no hay una cantidad de producto valida");
