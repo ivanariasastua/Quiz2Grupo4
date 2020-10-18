@@ -40,11 +40,14 @@ public class FacturaDetalleServiceImplementation implements IFacturaDetalleServi
     public FacturaDetalleDTO create(FacturaDetalleDTO factura) throws FacturaDetalleException{
         if(factura.getCantidad() == 0)
             throw new FacturaDetalleException("No se puede registrar un detalle si no hay una cantidad de producto valida");
+        
         if(factura.getProducto() == null)
             throw new FacturaDetalleException("No se puede registrar un detalle de factura sin producto");
+        
         List<ProductoExistenciaDTO> existencias = factura.getProducto().getExistencias();
         if(existencias.isEmpty())
             throw new FacturaDetalleException("No se puede registrar el detalle de factura, el producto no posee existencias");
+        
         ProductoExistenciaDTO ultimaExistencia;
         if(existencias.size() == 1)
             ultimaExistencia = existencias.get(0);
@@ -55,12 +58,15 @@ public class FacturaDetalleServiceImplementation implements IFacturaDetalleServi
                     ultimaExistencia = existencias.get(i);
             }
         }
+        
         if(ultimaExistencia.getCantidad() == 0)
             throw new FacturaDetalleException("No se puede registrar el detalle de factura, el producto no tiene existecias");
+        
         List<ProductoPrecioDTO> precios = factura.getProducto().getPrecios();
         if(precios.isEmpty())
             throw new FacturaDetalleException("No se puede registrar el detalle de factura, el producto no tiene precios registrados");
         ProductoPrecioDTO ultimo;
+        
         if(precios.size() == 1)
             ultimo = precios.get(0);
         else{
@@ -70,8 +76,10 @@ public class FacturaDetalleServiceImplementation implements IFacturaDetalleServi
                     ultimo = precios.get(i);
             }
         }
+        
         if(factura.getDescuentoFinal() > ultimo.getDescuentoMaximo())
             throw new FacturaDetalleException("El descuento final del detalle de factura es mayor al descuento máximo permitido por el producto");
+        
         FacturaDetalle facturaDetalle = MapperUtils.EntityFromDto(factura, FacturaDetalle.class);
         facturaDetalle = facturaDetalleRepository.save(facturaDetalle);
         return ServiceConvertionHelper.OneToDto(facturaDetalle, FacturaDetalleDTO.class);
